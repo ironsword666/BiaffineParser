@@ -2,10 +2,11 @@ import torch
 import torch.nn as nn
 from torch.nn.utils.rnn import pad_sequence, pack_padded_sequence, pad_packed_sequence
 
-from .mlp import MLP
-from .biaffine import Biaffine
+from src.modules.mlp import MLP
+from src.modules.biaffine import Biaffine
 
-class Model(nn.Module):
+
+class BiaffineParser(nn.Module):
     '''
     Model(
     (word_embedding): Embedding(23144, 100)
@@ -23,7 +24,7 @@ class Model(nn.Module):
     '''
 
     def __init__(self, args):
-        super(Model, self).__init__()
+        super(BiaffineParser, self).__init__()
 
         self.args = args
         self.pad_index = args.pad_index
@@ -102,7 +103,7 @@ class Model(nn.Module):
 
         # Biaffine Layer
         # ... -> (batch, seq_len, seq_len), with <bos> and <pad>
-        # for a score matrix of size (seq_len, seq_len), s_ij is the score of j->i
+        # to a score matrix of size (seq_len, seq_len), s_ij is the score of j->i
         scores_arc = self.biaffine_arc(arc_dep, arc_head)
 
 
