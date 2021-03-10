@@ -34,7 +34,7 @@ class Sentence(object):
 class Conll(Corpus):
     '''
 
-    A conllx file has 10 fields:
+    A conllx file consists of 10 fields:
     1    ID      当前词在句子中的序号，１开始.
     2    FORM    当前词语或标点
     3    LEMMA   当前词语（或标点）的原型或词干，在中文中，此列与FORM相同

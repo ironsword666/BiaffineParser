@@ -23,7 +23,17 @@ class BiaffineParser(nn.Module):
     )
     '''
 
-    def __init__(self, args):
+    def __init__(self, 
+                 n_wordst,
+                 n_chars,
+                 n_tags,
+                 n_embed=args.n_embed,
+                 n_char_embed=args.n_char_embed,
+                 n_feat_embed=args.n_feat_embed,
+                 n_lstm_hidden=args.n_lstm_hidden,
+                 n_lstm_layer=args.n_lstm_layer,
+                 pad_index=WORD.pad_index,
+                 unk_index=WORD.unk_index):
         super(BiaffineParser, self).__init__()
 
         self.args = args

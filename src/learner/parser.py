@@ -63,7 +63,7 @@ class Parser(object):
             start_time = datetime.now()
 
             print('training epoch {} :'.format(epoch))
-            loss, metric = self.train_epoch(args, train.data_loader)
+            loss, metric = self._train(args, train.data_loader)
             print('train loss: {}'.format(loss))
             accuracy = self.evaluate(args, dev.data_loader)
             print('dev accuracy: {}'.format(accuracy))
@@ -80,7 +80,7 @@ class Parser(object):
         print('test accuracy: {}'.format(accuracy))
         print('total_time: {}'.format(total_time))
 
-    def train_epoch(self, args, data_loader):
+    def _train(self, args, data_loader):
         '''
         Args:
             args:
@@ -128,6 +128,8 @@ class Parser(object):
 
             # mask = words.ne(self.fields['WORD'].pad_index) & words.ne(self.fields['WORD'].bos_index) & words.ne(self.fields['WORD'].eos_index)
             scores = self.parser_model(words, feats) 
+
+            # TODO complete
 
         uas = 0
 
@@ -191,7 +193,7 @@ class Parser(object):
             # TODO char-bilstm, use eos_token
             FEAT = SubWordField(pad_token=pad_token, unk_token=unk_token, bos_token=bos_token,
                                 eos_token=eos_token, fix_len=args.fix_len, tokenize=list)
-            # TODO need bos_token and eos_token?
+            # TODO REL need bos_token and eos_token?
             POS = Field(bos_token=bos_token, eos_token=eos_token)
             conll = Conll.load(args.ftrain)
 
@@ -206,7 +208,8 @@ class Parser(object):
                              min_freq=args.min_freq, 
                              embed=(Embedding.load(args.w2v) if args.w2v else None))
             FEAT.build_vocab(examples=getattr(conll, Conll.FIELD_NAMES[1]))
-            POS.build_vocab(examples=getattr(conll, Conll.FIELD_NAMES[3]))
+            # TODO REL
+            REL.build_vocab(examples=getattr(conll, Conll.FIELD_NAMES[3]))
         # TODO load fields
         else:
             pass

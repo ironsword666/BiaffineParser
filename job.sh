@@ -5,9 +5,9 @@
 # python -u run.py \
 #     --device=2 \
 #     --seed=1 \
-#     --ftrain=data/ctb/train.conll \
-#     --fdev=data/ctb/dev.conll \
-#     --ftest=data/ctb/test.conll \
+#     --ftrain=data/ctb/train.conllx \
+#     --fdev=data/ctb/dev.conllx \
+#     --ftest=data/ctb/test.conllx \
 #     --w2v=data/embedding/giga_with_unk.100.txt \
 #     --unk=UNK \
 #     --save_dir=save/ctb/ \
